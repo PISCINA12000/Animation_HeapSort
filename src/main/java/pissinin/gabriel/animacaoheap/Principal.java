@@ -145,6 +145,7 @@ public class Principal extends Application {
     }
 
     public void criarArvore() {
+        //comentário apenas para testar o git no cmd
         arvore = new Button[10];
         for (int i = 0; i < vetor.getTL(); i++) {
             arvore[i] = new Button(String.valueOf(vetor.getIndex(i)));
