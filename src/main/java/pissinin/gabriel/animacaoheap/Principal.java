@@ -5,7 +5,12 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
@@ -18,6 +23,7 @@ public class Principal extends Application {
     private Button[] vet;
     private Button[] arvore;
     private Text[] programa;
+    private Text titulo;
     Vetor vetor = new Vetor();
 
     public static void main(String[] args) {
@@ -32,15 +38,18 @@ public class Principal extends Application {
         // DEFINO O BOTÃO INÍCIO E TODAS AS SUAS FUNÇÕES
         botao_inicio = new Button();
         botao_inicio.setLayoutX(10);
-        botao_inicio.setLayoutY(100);
+        botao_inicio.setLayoutY(210);
         botao_inicio.setText("Iniciar");
+        botao_inicio.setStyle("-fx-background-color: #9C27B0; -fx-text-fill: white;");
         botao_inicio.setOnAction(e -> {
+            botao_inicio.setDisable(true);
             iniciarOrdenacao();
         });
         pane.getChildren().add(botao_inicio);
         criarBotoes();
         criarArvore();
         criarAlgoritmo();
+        criarTitulo();
 
         Scene scene = new Scene(pane, 1100, 600);
         stage.setScene(scene);
@@ -89,6 +98,37 @@ public class Principal extends Application {
             programa[i].setFont(new Font(14));
             pane.getChildren().add(programa[i]);
         }
+    }
+
+    public void criarTitulo(){
+        titulo = new Text("HEAP SORT");
+        titulo.setFont(new Font("Arial Bold", 32));
+        titulo.setLayoutY(80);
+        titulo.setLayoutX(250);
+
+        // Efeito de sombreamento para dar profundidade
+        DropShadow sombra = new DropShadow();
+        sombra.setColor(Color.GRAY);
+        sombra.setOffsetX(3);
+        sombra.setOffsetY(3);
+        sombra.setRadius(5);
+        titulo.setEffect(sombra);
+
+        // Aplicando um gradiente linear para o texto
+        LinearGradient gradiente = new LinearGradient(
+                0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.DARKBLUE),
+                new Stop(0.5, Color.BLUE),
+                new Stop(1, Color.DARKBLUE)
+        );
+
+        titulo.setFill(gradiente);
+
+        // Contorno do texto
+        titulo.setStrokeWidth(1);
+        titulo.setStroke(Color.BLACK);
+
+        pane.getChildren().add(titulo);
     }
 
     public void criarBotoes() {
