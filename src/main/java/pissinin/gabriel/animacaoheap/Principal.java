@@ -150,6 +150,7 @@ public class Principal extends Application {
             arvore[i] = new Button(String.valueOf(vetor.getIndex(i)));
             arvore[i].setMinHeight(40);
             arvore[i].setMinWidth(40);
+            arvore[i].setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
             arvore[i].setFont(new Font(14));
         }
         posicionarNoArvore(0,100,600,0); //pos vet, inicio, fim, nivel
@@ -219,6 +220,7 @@ public class Principal extends Application {
                 setarCorTexto(programa[2], 1);sleep(400); //vermelho rapidamente pois testou e deu falso
                 setarCorTexto(programa[2], 0);
                 setarCorBotao(arvore[TL2-1],6);
+                botao_inicio.setDisable(false);
             }
             private void heapify(int tl2) throws InterruptedException {
                 //grifar as delarações
@@ -280,12 +282,12 @@ public class Principal extends Application {
                     setarCorTexto(programa[18], 0); //voltar ao original pois saiu do if
                     //voltar as cores originais
                     setarCorBotao(vet[pai],0);
-                    setarCorBotao(arvore[pai],0);
+                    setarCorBotao(arvore[pai],2);
                     setarCorBotao(vet[filhoEsq],0);
-                    setarCorBotao(arvore[filhoEsq],0);
+                    setarCorBotao(arvore[filhoEsq],2);
                     if(filhoDir<tl2) {
                         setarCorBotao(vet[filhoDir], 0);
-                        setarCorBotao(arvore[filhoDir], 0);
+                        setarCorBotao(arvore[filhoDir], 2);
                     }
                 }
                 setarCorTexto(programa[12], 1); sleep(400); //pois para sair o for precisa ser falso
