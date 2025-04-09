@@ -178,6 +178,7 @@ public class Principal extends Application {
                 }
                 setarCorTexto(programa[2], 1);sleep(400); //vermelho rapidamente pois testou e deu falso
                 setarCorTexto(programa[2], 0);
+                setarCorBotao(arvore[TL2-1],6);
             }
             private void heapify(int tl2) throws InterruptedException {
                 //grifar as delarações
