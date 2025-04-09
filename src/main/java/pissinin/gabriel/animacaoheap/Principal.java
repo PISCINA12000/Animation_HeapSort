@@ -6,16 +6,18 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import java.util.concurrent.CountDownLatch;
 import static java.lang.Thread.sleep;
 
 public class Principal extends Application {
-    AnchorPane pane;
-    Button botao_inicio;
+    private AnchorPane pane;
+    private Button botao_inicio;
     private Button[] vet;
     private Button[] arvore;
+    private Text[] programa;
     Vetor vetor = new Vetor();
 
     public static void main(String[] args) {
@@ -38,8 +40,9 @@ public class Principal extends Application {
         pane.getChildren().add(botao_inicio);
         criarBotoes();
         criarArvore();
+        criarAlgoritmo();
 
-        Scene scene = new Scene(pane, 800, 600);
+        Scene scene = new Scene(pane, 1100, 600);
         stage.setScene(scene);
         stage.show();
     }
@@ -47,6 +50,45 @@ public class Principal extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         inicializar(stage);
+    }
+
+    public void criarAlgoritmo() {
+        programa = new Text[25]; //meu programa contém 25 linhas
+        programa[0] = new Text("public void heapSort() {");
+        programa[1] = new Text("|\tint TL2=this.TL, aux;");
+        programa[2] = new Text("|\twhile(TL2>1){");
+        programa[3] = new Text("|\t|\theapify(TL2);");
+        programa[4] = new Text("|\t|\taux = this.vetor[0];");
+        programa[5] = new Text("|\t|\tthis.vetor[0] = this.vetor[TL2-1];");
+        programa[6] = new Text("|\t|\tthis.vetor[TL2-1] = aux;");
+        programa[7] = new Text("|\t|\tTL2--;");
+        programa[8] = new Text("|\t}");
+        programa[9] = new Text("}");
+        programa[10] = new Text("private void heapify(int tl2) {");
+        programa[11] = new Text("|\tint filhoEsq, filhoDir, filhoMax, aux;");
+        programa[12] = new Text("|\tfor(int pai = tl2/2-1; pai>=0; pai--){");
+        programa[13] = new Text("|\t|\tfilhoEsq = pai*2+1;");
+        programa[14] = new Text("|\t|\tfilhoDir = pai*2+2;");
+        programa[15] = new Text("|\t|\tfilhoMax = filhoEsq;");
+        programa[16] = new Text("|\t|\tif(filhoDir<tl2 && vetor[filhoDir]>this.vetor[filhoEsq])");
+        programa[17] = new Text("|\t|\t|\tfilhoMax = filhoDir;");
+        programa[18] = new Text("|\t|\tif(vetor[filhoMax]>vetor[pai]){");
+        programa[19] = new Text("|\t|\t|\taux = vetor[filhoMax];");
+        programa[20] = new Text("|\t|\t|\tvetor[filhoMax] = vetor[pai];");
+        programa[21] = new Text("|\t|\t|\tvetor[pai] = aux;");
+        programa[22] = new Text("|\t|\t}");
+        programa[23] = new Text("|\t}");
+        programa[24] = new Text("}");
+
+        //vou posicioná-los
+        for (int i = 0; i < programa.length; i++) {
+            programa[i].setLayoutX(630);
+            programa[i].setLayoutY(30+i*20);
+            programa[i].setStyle("-fx-fill: #000000;");
+            programa[i].setVisible(true);
+            programa[i].setFont(new Font(14));
+            pane.getChildren().add(programa[i]);
+        }
     }
 
     public void criarBotoes() {
@@ -60,10 +102,6 @@ public class Principal extends Application {
             vet[i].setFont(new Font(14));
             pane.getChildren().add(vet[i]);
         }
-    }
-
-    public void instanciarArvore() {
-
     }
 
     public void criarArvore() {
@@ -109,29 +147,73 @@ public class Principal extends Application {
             }
 
             private void heapSort() throws InterruptedException {
-                int TL2 = vetor.getTL(), aux;
+                int TL2 = vetor.getTL();
+                setarCorTexto(programa[1], 1);sleep(400);
+                setarCorTexto(programa[1], 0); //voltar ao normal
 
+                //grifar o teste do while
+                setarCorTexto(programa[2], 1); sleep(400);
                 while(TL2>1) {
+                    //verde se entrou
+                    setarCorTexto(programa[2], 2);sleep(200);
                     // ARRUMA A ÁRVORE PARA DEIXAR O MAIOR ELEMENTO NA PRIMEIRA POSIÇÃO
+                    //grifar a chamada de função heapfy
+                    setarCorTexto(programa[3], 3);sleep(200);
                     heapify(TL2);
+                    setarCorTexto(programa[3], 0); //voltar a função heapify para o padrão
+                    //grifar a permutação
+                    setarCorTexto(programa[4], 1);
+                    setarCorTexto(programa[5], 1);
+                    setarCorTexto(programa[6], 1);
+                    setarCorTexto(programa[7], 1);
                     move_botoes(0, TL2 - 1);
+                    //voltar o código da permutação ao normal
+                    setarCorTexto(programa[4], 0);
+                    setarCorTexto(programa[5], 0);
+                    setarCorTexto(programa[6], 0);
+                    setarCorTexto(programa[7], 0);
                     setarCorBotao(vet[TL2-1],6); //seta o último botão para cinza escuro, indicando que está ordenado
                     setarCorBotao(arvore[TL2-1],6);
                     TL2--;
                 }
+                setarCorTexto(programa[2], 1);sleep(400); //vermelho rapidamente pois testou e deu falso
+                setarCorTexto(programa[2], 0);
             }
             private void heapify(int tl2) throws InterruptedException {
-                int filhoEsq, filhoDir, filhoMax, aux;
+                //grifar as delarações
+                setarCorTexto(programa[11], 1); sleep(400);
+                setarCorTexto(programa[11], 0);
+                int filhoEsq, filhoDir, filhoMax;
 
+                //grifar o teste do for
+                setarCorTexto(programa[12], 1); sleep(400);
                 for(int pai = tl2/2-1; pai>=0; pai--){
+                    //verde se entrou
+                    setarCorTexto(programa[12], 2); sleep(400);
                     setarCorBotao(vet[pai], 3);
                     setarCorBotao(arvore[pai], 3);
+                    //grifar rapidamente as declarações
+                    setarCorTexto(programa[13], 1); sleep(400);
+                    setarCorTexto(programa[14], 1); sleep(400);
+                    setarCorTexto(programa[15], 1); sleep(400);
+                    setarCorTexto(programa[13], 0);
+                    setarCorTexto(programa[14], 0);
+                    setarCorTexto(programa[15], 0);
                     filhoEsq = pai*2+1;
                     filhoDir = pai*2+2;
                     filhoMax = filhoEsq;
+                    //grifar a pergunta do if
+                    setarCorTexto(programa[16], 1); sleep(400);
                     if(filhoDir<tl2 && Integer.parseInt(vet[filhoDir].getText()) > Integer.parseInt(vet[filhoEsq].getText())){
+                        //se entrar no if eu o deixo como verde
+                        setarCorTexto(programa[16], 2); sleep(400);
+                        //grifar a atribuição
+                        setarCorTexto(programa[17], 1); sleep(400);
+                        setarCorTexto(programa[17], 0);
                         filhoMax = filhoDir;
                     }
+                    setarCorTexto(programa[16], 0); //retiro a formatação pois saí do if
+                    //esse if é apenas visual para os botões, não necessário tratar
                     if(filhoDir<tl2){
                         setarCorBotao(vet[filhoDir],4);
                         setarCorBotao(arvore[filhoDir],4);
@@ -139,9 +221,22 @@ public class Principal extends Application {
                     setarCorBotao(vet[filhoEsq],4);
                     setarCorBotao(arvore[filhoEsq],4);
                     sleep(200);
+                    //grifar a pergunta
+                    setarCorTexto(programa[18], 1); sleep(400);
                     if(Integer.parseInt(vet[filhoMax].getText()) > Integer.parseInt(vet[pai].getText())){
+                        //verde se verdade
+                        setarCorTexto(programa[18], 2); sleep(400);
+                        //grifar a permutação
+                        setarCorTexto(programa[19], 1);
+                        setarCorTexto(programa[20], 1);
+                        setarCorTexto(programa[21], 1);
                         move_botoes(pai, filhoMax);
+                        //'desgrifar' a permutação
+                        setarCorTexto(programa[19], 0);
+                        setarCorTexto(programa[20], 0);
+                        setarCorTexto(programa[21], 0);
                     }
+                    setarCorTexto(programa[18], 0); //voltar ao original pois saiu do if
                     //voltar as cores originais
                     setarCorBotao(vet[pai],0);
                     setarCorBotao(arvore[pai],0);
@@ -152,6 +247,8 @@ public class Principal extends Application {
                         setarCorBotao(arvore[filhoDir], 0);
                     }
                 }
+                setarCorTexto(programa[12], 1); sleep(400); //pois para sair o for precisa ser falso
+                setarCorTexto(programa[12], 0); //retirar a formatação pois saí do for
             }
 
             private void move_botoes(int x, int y) throws InterruptedException {
@@ -301,6 +398,39 @@ public class Principal extends Application {
                             break;
                         case 6: // Cinza
                             botao.setStyle("-fx-background-color: #4F4F4F; -fx-text-fill: white;");
+                            break;
+                        default: // Caso o código não seja reconhecido, use a cor padrão
+                            break;
+                    }
+                });
+            } /*definir cores para os botões*/
+
+            public void setarCorTexto(Text texto, int codigo) {
+                Platform.runLater(() -> {
+                    // Remover estilos anteriores
+                    texto.setStyle("");
+
+                    switch (codigo) {
+                        case 0: // Padrão
+                            texto.setStyle("-fx-fill: #000000;");
+                            break;
+                        case 1: // Vermelho
+                            texto.setStyle("-fx-background-color: #A9A9A9; -fx-fill: #ff4d4d;");
+                            break;
+                        case 2: // Verde
+                            texto.setStyle("-fx-fill: #4CAF50;");
+                            break;
+                        case 3: // Azul
+                            texto.setStyle("-fx-fill: #2196F3;");
+                            break;
+                        case 4: // Amarelo
+                            texto.setStyle("-fx-fill: #FFC107;");
+                            break;
+                        case 5: // Roxo
+                            texto.setStyle("-fx-fill: #9C27B0;");
+                            break;
+                        case 6: // Cinza
+                            texto.setStyle("-fx-fill: #4F4F4F;");
                             break;
                         default: // Caso o código não seja reconhecido, use a cor padrão
                             break;

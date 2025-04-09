@@ -54,38 +54,31 @@ public class Vetor {
         System.out.println();
     }
 
-//    public void heapSort() {
-//        int TL2=this.TL, aux;
-//
-//        while(TL2>1){
-//            // ARRUMA A ÁRVORE PARA DEIXAR O MAIOR ELEMENTO NA PRIMEIRA POSIÇÃO
-//            heapify(TL2);
-//
-//            // PERMUTAÇÃO DO MAIOR ELEMENTO PARA A ÚLTIMA POSIÇÃO POSSÍVEL
-//            aux = this.vetor[0];
-//            this.vetor[0] = this.vetor[TL2-1];
-//            this.vetor[TL2-1] = aux;
-//
-//            TL2--;
-//        }
-//    }
-//    private void heapify(int tl2) {
-//        int filhoEsq, filhoDir, filhoMax, aux;
-//
-//        for(int pai = tl2/2-1; pai>=0; pai--){
-//            filhoEsq = pai*2+1;
-//            filhoDir = pai*2+2;
-//            filhoMax = filhoEsq;
-//            if(filhoDir<tl2 && vetor[filhoDir]>this.vetor[filhoEsq]){
-//                filhoMax = filhoDir;
-//            }
-//            if(vetor[filhoMax]>vetor[pai]){
-//                aux = vetor[filhoMax];
-//                vetor[filhoMax] = vetor[pai];
-//                vetor[pai] = aux;
-//            }
-//        }
-//    }
+    public void heapSort() {
+        int TL2=this.TL, aux;
+        while(TL2>1){
+            heapify(TL2);
+            aux = this.vetor[0];
+            this.vetor[0] = this.vetor[TL2-1];
+            this.vetor[TL2-1] = aux;
+            TL2--;
+        }
+    }
+    private void heapify(int tl2) {
+        int filhoEsq, filhoDir, filhoMax, aux;
+        for(int pai = tl2/2-1; pai>=0; pai--){
+            filhoEsq = pai*2+1;
+            filhoDir = pai*2+2;
+            filhoMax = filhoEsq;
+            if(filhoDir<tl2 && vetor[filhoDir]>this.vetor[filhoEsq])
+                filhoMax = filhoDir;
+            if(vetor[filhoMax]>vetor[pai]){
+                aux = vetor[filhoMax];
+                vetor[filhoMax] = vetor[pai];
+                vetor[pai] = aux;
+            }
+        }
+    }
 
     // GETS E SETS
     public int getN() {
