@@ -25,6 +25,8 @@ public class Principal extends Application {
     private Text[] programa;
     private Text titulo;
     Vetor vetor = new Vetor();
+    private static final int t = 100; //tempo para mudar as linhas
+    private static final int t2 = 20; //tempo para mudar os elementos entre si
 
     public static void main(String[] args) {
         launch(args);
@@ -190,17 +192,17 @@ public class Principal extends Application {
 
             private void heapSort() throws InterruptedException {
                 int TL2 = vetor.getTL();
-                setarCorTexto(programa[1], 1);sleep(400);
+                setarCorTexto(programa[1], 1);sleep(t);
                 setarCorTexto(programa[1], 0); //voltar ao normal
 
                 //grifar o teste do while
-                setarCorTexto(programa[2], 1); sleep(400);
+                setarCorTexto(programa[2], 1); sleep(t);
                 while(TL2>1) {
                     //verde se entrou
-                    setarCorTexto(programa[2], 2);sleep(200);
+                    setarCorTexto(programa[2], 2);sleep(t);
                     // ARRUMA A ÁRVORE PARA DEIXAR O MAIOR ELEMENTO NA PRIMEIRA POSIÇÃO
                     //grifar a chamada de função heapfy
-                    setarCorTexto(programa[3], 3);sleep(200);
+                    setarCorTexto(programa[3], 3);sleep(t);
                     heapify(TL2);
                     setarCorTexto(programa[3], 0); //voltar a função heapify para o padrão
                     //grifar a permutação
@@ -218,28 +220,28 @@ public class Principal extends Application {
                     setarCorBotao(arvore[TL2-1],6);
                     TL2--;
                 }
-                setarCorTexto(programa[2], 1);sleep(400); //vermelho rapidamente pois testou e deu falso
+                setarCorTexto(programa[2], 1);sleep(t); //vermelho rapidamente pois testou e deu falso
                 setarCorTexto(programa[2], 0);
                 setarCorBotao(arvore[TL2-1],6);
                 botao_inicio.setDisable(false);
             }
             private void heapify(int tl2) throws InterruptedException {
                 //grifar as delarações
-                setarCorTexto(programa[11], 1); sleep(400);
+                setarCorTexto(programa[11], 1); sleep(t);
                 setarCorTexto(programa[11], 0);
                 int filhoEsq, filhoDir, filhoMax;
 
                 //grifar o teste do for
-                setarCorTexto(programa[12], 1); sleep(400);
+                setarCorTexto(programa[12], 1); sleep(t);
                 for(int pai = tl2/2-1; pai>=0; pai--){
                     //verde se entrou
-                    setarCorTexto(programa[12], 2); sleep(400);
+                    setarCorTexto(programa[12], 2); sleep(t);
                     setarCorBotao(vet[pai], 3);
                     setarCorBotao(arvore[pai], 3);
                     //grifar rapidamente as declarações
-                    setarCorTexto(programa[13], 1); sleep(400);
-                    setarCorTexto(programa[14], 1); sleep(400);
-                    setarCorTexto(programa[15], 1); sleep(400);
+                    setarCorTexto(programa[13], 1); sleep(t);
+                    setarCorTexto(programa[14], 1); sleep(t);
+                    setarCorTexto(programa[15], 1); sleep(t);
                     setarCorTexto(programa[13], 0);
                     setarCorTexto(programa[14], 0);
                     setarCorTexto(programa[15], 0);
@@ -247,12 +249,12 @@ public class Principal extends Application {
                     filhoDir = pai*2+2;
                     filhoMax = filhoEsq;
                     //grifar a pergunta do if
-                    setarCorTexto(programa[16], 1); sleep(400);
+                    setarCorTexto(programa[16], 1); sleep(t);
                     if(filhoDir<tl2 && Integer.parseInt(vet[filhoDir].getText()) > Integer.parseInt(vet[filhoEsq].getText())){
                         //se entrar no if eu o deixo como verde
-                        setarCorTexto(programa[16], 2); sleep(400);
+                        setarCorTexto(programa[16], 2); sleep(t);
                         //grifar a atribuição
-                        setarCorTexto(programa[17], 1); sleep(400);
+                        setarCorTexto(programa[17], 1); sleep(t);
                         setarCorTexto(programa[17], 0);
                         filhoMax = filhoDir;
                     }
@@ -264,12 +266,12 @@ public class Principal extends Application {
                     }
                     setarCorBotao(vet[filhoEsq],4);
                     setarCorBotao(arvore[filhoEsq],4);
-                    sleep(200);
+                    sleep(t);
                     //grifar a pergunta
-                    setarCorTexto(programa[18], 1); sleep(400);
+                    setarCorTexto(programa[18], 1); sleep(t);
                     if(Integer.parseInt(vet[filhoMax].getText()) > Integer.parseInt(vet[pai].getText())){
                         //verde se verdade
-                        setarCorTexto(programa[18], 2); sleep(400);
+                        setarCorTexto(programa[18], 2); sleep(t);
                         //grifar a permutação
                         setarCorTexto(programa[19], 1);
                         setarCorTexto(programa[20], 1);
@@ -291,7 +293,7 @@ public class Principal extends Application {
                         setarCorBotao(arvore[filhoDir], 2);
                     }
                 }
-                setarCorTexto(programa[12], 1); sleep(400); //pois para sair o for precisa ser falso
+                setarCorTexto(programa[12], 1); sleep(t); //pois para sair o for precisa ser falso
                 setarCorTexto(programa[12], 0); //retirar a formatação pois saí do for
             }
 
@@ -308,7 +310,7 @@ public class Principal extends Application {
                                 for (int i = 0; i < 10; i++) {
                                     Platform.runLater(() -> vet[x].setLayoutY(vet[x].getLayoutY() + 5));
                                     Platform.runLater(() -> vet[y].setLayoutY(vet[y].getLayoutY() - 5));
-                                    sleep(25);
+                                    sleep(t2);
                                 }
 
                                 int iteracoes = (int) ((vet[y].getLayoutX() - vet[x].getLayoutX()) / 5);
@@ -316,14 +318,14 @@ public class Principal extends Application {
                                 for (int i = 0; i < iteracoes; i++) {
                                     Platform.runLater(() -> vet[x].setLayoutX(vet[x].getLayoutX() + 5));
                                     Platform.runLater(() -> vet[y].setLayoutX(vet[y].getLayoutX() - 5));
-                                    sleep(25);
+                                    sleep(t2);
                                 }
 
                                 //DESCER O X e SUBIR O Y
                                 for (int i = 0; i < 10; i++) {
                                     Platform.runLater(() -> vet[x].setLayoutY(vet[x].getLayoutY() - 5));
                                     Platform.runLater(() -> vet[y].setLayoutY(vet[y].getLayoutY() + 5));
-                                    sleep(25);
+                                    sleep(t2);
                                 }
 
 //                                //Permutação na tela da minha árvore
@@ -369,7 +371,7 @@ public class Principal extends Application {
                                         arvore[y].setLayoutY(arvore[y].getLayoutY() - dy);
                                     });
                                     try {
-                                        Thread.sleep(25);
+                                        Thread.sleep(t2);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }

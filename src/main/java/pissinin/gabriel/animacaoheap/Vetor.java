@@ -3,7 +3,7 @@ package pissinin.gabriel.animacaoheap;
 import java.util.Random;
 
 public class Vetor {
-    private final int N = 10;
+    private final int N = 100;
     private int TL = 10;
     private int[] vetor = new int[N];
 
@@ -18,7 +18,7 @@ public class Vetor {
     }
 
     public void criarVetor() {
-        alimentar();
+        //alimentar();
         embaralhar();
         exibir();
     }
@@ -31,12 +31,8 @@ public class Vetor {
 
     public void embaralhar() {
         Random gerador = new Random();
-        int aux;
         for(int i = 0; i < N; i++) {
-            int pos = gerador.nextInt(N);
-            aux = vetor[i];
-            vetor[i] = vetor[pos];
-            vetor[pos] = aux;
+            vetor[i] = gerador.nextInt(N);
         }
     }
 
